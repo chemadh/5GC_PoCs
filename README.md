@@ -6,6 +6,10 @@ On this regard, there are two open-source implementations of 5G Core that could 
 - Free5GC_PoCs: https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs
 - Open5GS_PoCs: https://github.com/chemadh/5GC_PoCs/tree/main/Open5GS_PoCs
 
+## Virtualized test environment
+
+The environment used to deploy the presented PoCs is Proxmox Virtual Environment (PVE), and it has been deployed in two clusters: one compound by 3 local physical machines, and other deployed in two VPS equipment in a public cloud. The two environments are configured with a common VXLAN overlay network to share the same L2 networking space. Anyway, any other virtualized environment is suitable to build similar examples meanwhile it includes local LAN connectivity between virtualized elements (i.e. OpenStack, virtualBox, etc).
+
 ## Additional references
 
 The following list contains third repositories with very valuable example configurations of Free5GC and Open5GS:
