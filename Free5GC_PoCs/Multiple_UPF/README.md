@@ -6,5 +6,6 @@ The objective of this PoC is demonstrating the following 5G functionalities usin
 -	Alignment of UERANSIM, UDM and SMF configuration to enable two Data Networks: Internet and IMS. The uplink classifier will address different UPFs to connect with each DN.
 -	Split of access and 5GC in different environments interconnected via the VXLAN overlay network.
 The overall concept is described in the next diagram:
+
 <img src="./capture_01.PNG" title="./capture_01.PNG" width=700px></img>
- width=700px
+
