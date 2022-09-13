@@ -6,6 +6,8 @@ On this regard, there are two open-source implementations of 5G Core that could 
 - Free5GC_PoCs: https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs
 - Open5GS_PoCs: https://github.com/chemadh/5GC_PoCs/tree/main/Open5GS_PoCs
 
+In addition to this, UERANSIM (https://github.com/aligungr/UERANSIM) is a simulation tool to emulate UEs and gNBs using software components, to be connected to 5GCs.  It is required to avoid the setup complexity of SDR radios, terminal and SIM configurations, since the focus of the activity is in 5G Core functionalities.
+
 ## Virtualized test environment
 
 The environment used to deploy the presented PoCs is Proxmox Virtual Environment (PVE), and it has been deployed in two clusters: one compound by 3 local physical machines, and other deployed in two VPS equipment in a public cloud. The two environments are configured with a common VXLAN overlay network to share the same L2 networking space. Anyway, any other virtualized environment is suitable to build similar examples meanwhile it includes local LAN connectivity between virtualized elements (i.e. OpenStack, virtualBox, etc).
