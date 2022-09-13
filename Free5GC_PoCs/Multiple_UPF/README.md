@@ -26,25 +26,25 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	- LxCs internet gateway y IMS, lserver3 physical node (cluster local)
   
 ## Low-level details of configuration applied:
--	 First Free5GC VM:
---	Update of amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and DNNs in supportDnnList element.
--- Update of smfcfg.yaml for SMF configuration, setting:
----	IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
----	N4 interface definition in pfcp section.
----	Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
----Definition of user plane topology in links section.
---	Update uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test.
--	Second Free5GC VM:
---	Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet in dnn_list section.
--	Third Free5GC VM:
---	Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section.
--	Fourth Free5GC VM:
---	Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS and Internet in dnn_list section.
--	Global reconfiguration of startup script in each Free5G VM (run.sh):
---	For VMs running only UPF, removal of parts of the script dedicated to launch the rest of 5GC elements.
---	For VM running only the control plane, removal of parts of the script dedicated to launch the UPF.
--	Update of 5GC subscription information (UDM web UI): Update of one of the UEs to define two DNNs: Internet and IMS.
--	Update of UERANSIM: update of UE configuration file (i.e. freegc_ue.yaml), to define both Internet and IMS DNNs.
+- First Free5GC VM:
+	- Update of amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and DNNs in supportDnnList element.
+	- Update of smfcfg.yaml for SMF configuration, setting:
+		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
+		- N4 interface definition in pfcp section.
+		- Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
+		- Definition of user plane topology in links section.
+	- Update uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test.
+- Second Free5GC VM:
+		- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet in dnn_list section.
+- Third Free5GC VM:
+	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section.
+- Fourth Free5GC VM:
+	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS and Internet in dnn_list section.
+- Global reconfiguration of startup script in each Free5G VM (run.sh):
+	- For VMs running only UPF, removal of parts of the script dedicated to launch the rest of 5GC elements.
+	- For VM running only the control plane, removal of parts of the script dedicated to launch the UPF.
+- Update of 5GC subscription information (UDM web UI): Update of one of the UEs to define two DNNs: Internet and IMS.
+- Update of UERANSIM: update of UE configuration file (i.e. freegc_ue.yaml), to define both Internet and IMS DNNs.
 
 ## Tests done:
 Once all Free5GC and UERANSIM components are running, it can be checked that UERANSIM node has raised two GTP tunnels with I-UPF, one for Internet DNN and other for IMS DNN.
