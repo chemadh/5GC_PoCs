@@ -37,7 +37,7 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	- Update run.sh to not launch UPF in this VM (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/run.sh).
 	- Update the configuration of subscriber information to use in the web UI, to add an IMS DNN. A capture of the resulting change can be seen below:
 
-<img src="./capture_02.PNG" title="./capture_02.PNG" width=700px></img>
+<img src="./capture_02.PNG" title="./capture_02.PNG" width=400px></img>
 
 - Second Free5GC VM:
 		- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet in dnn_list section.
