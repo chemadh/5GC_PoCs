@@ -17,17 +17,17 @@ The overall concept is described in the next diagram:
 
 ## Additional elements required to build the PoC
 -	UERANSIM LxC instance to simulate the access network (gNB) and UE.
--	LxC instance to simulate the Internet Gateway function.
--	LxC instance to simulate the IMS node.
+-	LxC instance to simulate the Internet Gateway function (simple Linux VM)
+-	LxC instance to simulate the IMS node (simple Linux VM)
 Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	- UERANSIM in VPS1 physical node (VPS cluster)
 	- Free5GC - control plane: lserver1 physical node (local cluster)
 	- Free5GC - UPFs: lserver2 physical node (local cluster)
-	- LxCs internet gateway y IMS, lserver3 physical node (cluster local)
+	- LxCs internet gateway y IMS, lserver3 physical node (local cluster)
   
 ## Low-level details of configuration applied:
 - First Free5GC VM:
-	- Update of amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and DNNs in supportDnnList element.
+	- Update of amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and DNNs in supportDnnList element (full file in ./config_files/free5gc/amfcfg.yaml
 	- Update of smfcfg.yaml for SMF configuration, setting:
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
 		- N4 interface definition in pfcp section.
