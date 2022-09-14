@@ -34,11 +34,6 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 		- Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
 		- Definition of user plane topology in links section.
 	- Update uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/uerouting.yaml).
-	- Update run.sh to not launch UPF in this VM (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/run.sh).
-	- Update the configuration of subscriber information to use in the web UI, to add an IMS DNN. A capture of the resulting change can be seen below:
-
-<img src="./capture_02.PNG" title="./capture_02.PNG" width=400px></img>
-
 - Second Free5GC VM:
 		- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet in dnn_list section.
 - Third Free5GC VM:
@@ -47,8 +42,11 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS and Internet in dnn_list section.
 - Global reconfiguration of startup script in each Free5G VM (run.sh):
 	- For VMs running only UPF, removal of parts of the script dedicated to launch the rest of 5GC elements.
-	- For VM running only the control plane, removal of parts of the script dedicated to launch the UPF.
-- Update of 5GC subscription information (UDM web UI): Update of one of the UEs to define two DNNs: Internet and IMS.
+	- For VM running only the control plane, removal of parts of the script dedicated to launch the UPF. (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/run.sh).
+- Update of 5GC subscription information (UDM web UI): Update of one of the UEs to define two DNNs: Internet and IMS. A capture of the resulting change in the web UI can be seen below:
+
+<img src="./capture_02.PNG" title="./capture_02.PNG" width=400px></img>
+
 - Update of UERANSIM: update of UE configuration file (i.e. freegc_ue.yaml), to define both Internet and IMS DNNs.
 
 ## Tests done:
