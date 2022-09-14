@@ -28,33 +28,53 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 ## Low-level details of configuration applied:
 - First Free5GC VM:
 	- Update of amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and DNNs in supportDnnList element (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/amfcfg.yaml)
-	- Update of smfcfg.yaml for SMF configuration, setting the following ((complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
+	- Update of smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
 		- N4 interface definition in pfcp section.
 		- Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
 		- Definition of user plane topology in links section.
 	- Update uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/uerouting.yaml).
 - Second Free5GC VM:
-		- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet in dnn_list section.
+		- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/upfcfg.yaml).
 - Third Free5GC VM:
-	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section.
+	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc03/upfcfg.yaml).
 - Fourth Free5GC VM:
-	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS and Internet in dnn_list section.
+	- Update of upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS and Internet in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc04/upfcfg.yaml).
 - Global reconfiguration of startup script in each Free5G VM (run.sh):
-	- For VMs running only UPF, removal of parts of the script dedicated to launch the rest of 5GC elements.
+	- For VMs running only UPF, removal of parts of the script dedicated to launch the rest of 5GC elements (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/run_only_upf.sh).
 	- For VM running only the control plane, removal of parts of the script dedicated to launch the UPF. (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/run.sh).
 - Update of 5GC subscription information (UDM web UI): Update of one of the UEs to define two DNNs: Internet and IMS. A capture of the resulting change in the web UI can be seen below:
 
 <img src="./capture_02.PNG" title="./capture_02.PNG" width=400px></img>
 
-- Update of UERANSIM: update of UE configuration file (i.e. freegc_ue.yaml), to define both Internet and IMS DNNs.
+- Update of UERANSIM: 
+	- Update of gNB configuration file to configure N2 NGAP interface to interact with AMF LAN IP (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-gnb.sh).
+	- Update of UE configuration file to define both Internet and IMS DNNs (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-ue.sh).
 
 ## Tests done:
-Once all Free5GC and UERANSIM components are running, it can be checked that UERANSIM node has raised two GTP tunnels with I-UPF, one for Internet DNN and other for IMS DNN.
+Once all Free5GC and UERANSIM components are running (using their respectively updated run.sh and run_only_upf.sh startup scripts), it can be checked that UERANSIM node has raised two GTP tunnels with I-UPF, one for Internet DNN and other for IMS DNN. UERANSIM startup example:
+```
+cd UERANSIM
+build/nr-gnb -c config/free5gc-gnb.yaml
+sudo build/nr-ue -c config/free5gc-ue.yaml
+```
 Connectivity tests (i.e. ping with tcpdump traffic validation) can be done to verify that:
--	Traffic connecting with Internet Gateway and using GTP interface associated to Internet DNN in UE, follows the user plane path gNB – i-UPF – Internet UPF – Internet Gateway LxC.
--	Traffic connecting with IMS node and using GTP interface associated to IMS DNN in UE, follows the user plane path gNB – i-UPF – IMS UPF – IMS LxC.
-
+-	Traffic connecting with Internet Gateway and using GTP interface associated to Internet DNN in UE, follows the user plane path gNB – i-UPF – Internet UPF – Internet Gateway LxC. Example ping command:
+```
+sudo ping 192.168.8.115 -I uesimtun0
+```
+-	Traffic connecting with IMS node and using GTP interface associated to IMS DNN in UE, follows the user plane path gNB – i-UPF – IMS UPF – IMS LxC. Example ping command:
+```
+sudo ping 192.168.8.116 -I uesimtun1
+```
+Note: please follow all the environment preparation instructions described in Free5GC basic setup guides: enable ip forwarding, setup NAT for traffic plane interfaces and stop firewall:
+```
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -o ens18 -j MASQUERADE
+sudo iptables -I FORWARD 1 -j ACCEPT
+sudo iptables -I INPUT -i upfgtp -j ACCEPT
+sudo systemctl stop ufw
+```
 ## Possible further improvements:
 In addition to the present PoC definition, the following improvements that can be identified for further activities (out of the scope of the present Master Thesis):
 1.	Deployment of Kamailo IMS (included since Kamailio 4.0) in IMS LxC instance.
