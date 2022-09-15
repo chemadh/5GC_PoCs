@@ -39,8 +39,8 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	```
 	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
-```yaml
-  snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by t>
+```
+  snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by
     - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
         sst: 1 # Slice/Service Type (uinteger, range: 0~255)
         sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
@@ -51,15 +51,14 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
         - dnn: IMS # Data Network Name
           dns: # the IP address of DNS
             ipv4: 8.8.8.8
-```
-
+		```
 		- N4 interface definition in pfcp section:
-```yaml
+		```yaml
   pfcp: # the IP address of N4 interface on this SMF (PFCP)
     addr: 192.168.34.105 # 127.0.0.1
-```
+		```
 		- Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
-```yaml
+		```yaml
   userplane_information: # list of userplane information
     up_nodes: # information of userplane node (AN or UPF)
       gNB1: # the name of the node
@@ -124,9 +123,9 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
               - 192.168.6.114  # 127.0.0.8
             networkInstance: IMS # Data Network Name (DNN)
  
-```
+		```
 		- Definition of user plane topology in links section.
-```yaml
+		```yaml
     links: # the topology graph of userplane, A and B represent the two nodes of each link
       - A: gNB1
         B: UPF_I
@@ -134,9 +133,9 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
         B: UPF_Internet
       - A: UPF_I
         B: UPF_IMS
-```
+		```
 	- Update ./free5gc/config/uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/uerouting.yaml).
-```yaml
+	```yaml
 ueRoutingInfo: # the list of UE routing information
   UE1: # Group Name
     members:
@@ -159,10 +158,10 @@ ueRoutingInfo: # the list of UE routing information
         # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
         # The UPF's name should be consistent with smfcfg.yaml
         path: [UPF_I, UPF_IMS]
-```
+	```
 - Second Free5GC VM:
 		- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet and IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/upfcfg.yaml).
-```yaml
+		```yaml
   # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
   pfcp:
     - addr: 192.168.34.113 # 127.0.0.8
@@ -175,7 +174,7 @@ ueRoutingInfo: # the list of UE routing information
   dnn_list:
     - dnn: internet # Data Network Name
       cidr: 60.60.0.0/24 # 60.60.2.0/24 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
-```
+		```
 - Third Free5GC VM:
 	- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc03/upfcfg.yaml).
 ```yaml
