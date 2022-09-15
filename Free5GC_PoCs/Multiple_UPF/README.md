@@ -29,18 +29,17 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 - First Free5GC VM:
 	- Update of ./free5gc/config/amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and IMS DNNs in supportDnnList element (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/amfcfg.yaml)
 
-```yaml
+	```yaml
   ngapIpList:  # the IP list of N2 interfaces on this AMF
     - 192.168.7.105  # 127.0.0.1
  
   supportDnnList:  # the DNN (Data Network Name) list supported by this AMF
     - internet
     - IMS
-```
-
-	-- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
+	```
+	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
-```
+```yaml
   snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by t>
     - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
         sst: 1 # Slice/Service Type (uinteger, range: 0~255)
@@ -55,12 +54,12 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 ```
 
 		- N4 interface definition in pfcp section:
-```
+```yaml
   pfcp: # the IP address of N4 interface on this SMF (PFCP)
     addr: 192.168.34.105 # 127.0.0.1
 ```
 		- Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
-```
+```yaml
   userplane_information: # list of userplane information
     up_nodes: # information of userplane node (AN or UPF)
       gNB1: # the name of the node
@@ -127,7 +126,7 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
  
 ```
 		- Definition of user plane topology in links section.
-```
+```yaml
     links: # the topology graph of userplane, A and B represent the two nodes of each link
       - A: gNB1
         B: UPF_I
@@ -137,7 +136,7 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
         B: UPF_IMS
 ```
 	- Update ./free5gc/config/uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/uerouting.yaml).
-```
+```yaml
 ueRoutingInfo: # the list of UE routing information
   UE1: # Group Name
     members:
@@ -163,7 +162,7 @@ ueRoutingInfo: # the list of UE routing information
 ```
 - Second Free5GC VM:
 		- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet and IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/upfcfg.yaml).
-```
+```yaml
   # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
   pfcp:
     - addr: 192.168.34.113 # 127.0.0.8
@@ -179,7 +178,7 @@ ueRoutingInfo: # the list of UE routing information
 ```
 - Third Free5GC VM:
 	- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc03/upfcfg.yaml).
-```
+```yaml
   # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
   pfcp:
     - addr: 192.168.34.117 # 127.0.0.8
@@ -197,7 +196,7 @@ ueRoutingInfo: # the list of UE routing information
 ```
 - Fourth Free5GC VM:
 	- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS and Internet in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc04/upfcfg.yaml).
-```
+```yaml
   # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
   pfcp:
     - addr: 192.168.34.117 # 127.0.0.8
@@ -221,9 +220,26 @@ ueRoutingInfo: # the list of UE routing information
 <img src="./capture_02.PNG" title="./capture_02.PNG" width=400px></img>
 
 - Update of UERANSIM: 
-	- Update of gNB configuration file to configure N2 NGAP interface to interact with AMF LAN IP (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-gnb.sh).
-	- Update of UE configuration file to define both Internet and IMS DNNs (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-ue.sh).
-
+	- Update of gNB configuration file to configure N2 NGAP interface to interact with AMF LAN IP (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-gnb.yaml).
+```yaml
+ngapIp: 192.168.7.109 # 127.0.0.1   # gNB's local IP address for N2 Interface (Usually same with local IP)
+gtpIp: 192.168.8.109 # 127.0.0.1    # gNB's local IP address for N3 Interface (Usually same with local IP)
+```
+	- Update of UE configuration file to define both Internet and IMS DNNs (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-ue.yaml).
+```yaml	
+# Initial PDU sessions to be established
+sessions:
+  - type: 'IPv4'
+    apn: 'internet'
+    slice:
+      sst: 0x01
+      sd: 0x010203
+  - type: 'IPv4'
+    apn: 'IMS'
+    slice:
+      sst: 0x01
+      sd: 0x010203
+```
 ## Tests done:
 Once all Free5GC and UERANSIM components are running (using their respectively updated run.sh and run_only_upf.sh startup scripts), it can be checked that UERANSIM node has raised two GTP tunnels with I-UPF, one for Internet DNN and other for IMS DNN. UERANSIM startup example:
 ```
