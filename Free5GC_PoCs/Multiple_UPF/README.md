@@ -37,6 +37,7 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
     - internet
     - IMS
 ```
+
 	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
 ```
@@ -52,6 +53,7 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
           dns: # the IP address of DNS
             ipv4: 8.8.8.8
 ```
+
 		- N4 interface definition in pfcp section:
 ```
   pfcp: # the IP address of N4 interface on this SMF (PFCP)
