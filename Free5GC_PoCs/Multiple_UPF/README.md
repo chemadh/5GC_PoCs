@@ -29,7 +29,7 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 - First Free5GC VM:
 	- Update of ./free5gc/config/amfcfg.yaml for AMF configuration, setting the N2 interface in ngapIpList element and Internet and IMS DNNs in supportDnnList element (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/amfcfg.yaml)
 
-```
+```yaml
   ngapIpList:  # the IP list of N2 interfaces on this AMF
     - 192.168.7.105  # 127.0.0.1
  
@@ -37,11 +37,8 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
     - internet
     - IMS
 ```
-```
-```
 
-
-	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
+- 	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
 ```
   snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by t>
