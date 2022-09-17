@@ -37,21 +37,14 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
     - internet
     - IMS
 	```
+
 	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
-```
-  snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by
-    - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
-        sst: 1 # Slice/Service Type (uinteger, range: 0~255)
-        sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
-      dnnInfos: # DNN information list
-        - dnn: internet # Data Network Name
-          dns: # the IP address of DNS
-            ipv4: 8.8.8.8
-        - dnn: IMS # Data Network Name
-          dns: # the IP address of DNS
-            ipv4: 8.8.8.8
+
 		```
+snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by
+		```
+		
 		- N4 interface definition in pfcp section:
 		```yaml
   pfcp: # the IP address of N4 interface on this SMF (PFCP)
