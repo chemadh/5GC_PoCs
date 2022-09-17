@@ -40,117 +40,103 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 
 	- Update of ./free5gc/config/smfcfg.yaml for SMF configuration, setting the following (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/smfcfg.yaml):
 		- IMS and Internet DNN in dnnInfos section of sNssai defined in snssaiInfos section, where supported S-NSSAIs are defined.
-
 		```
-snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by
+		snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by
+		- sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+  		 sst: 1 # Slice/Service Type (uinteger, range: 0~255)
+  		 sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+		 dnnInfos: # DNN information list
+		- dnn: internet # Data Network Name
+  		 dns: # the IP address of DNS
+  	 	 ipv4: 8.8.8.8
+		- dnn: IMS # Data Network Name
+  		 dns: # the IP address of DNS
+  		 ipv4: 8.8.8.8
 		```
-		
 		- N4 interface definition in pfcp section:
 		```yaml
-  pfcp: # the IP address of N4 interface on this SMF (PFCP)
-    addr: 192.168.34.105 # 127.0.0.1
+  		pfcp: # the IP address of N4 interface on this SMF (PFCP)
+   		 addr: 192.168.34.105 # 127.0.0.1
 		```
 		- Definition of UPF-I, UPF-Internet and UPF-IMS associations in up_nodes element of userplane_information section.
 		```yaml
-  userplane_information: # list of userplane information
-    up_nodes: # information of userplane node (AN or UPF)
-      gNB1: # the name of the node
-        type: AN # the type of the node (AN or UPF)
-      UPF_I:  # the name of the node
-        type: UPF # the type of the node (AN or UPF)
-        node_id: 192.168.34.117 # 127.0.0.8 # the IP/FQDN of N4 interface on this UPF (PFCP)
-        sNssaiUpfInfos: # S-NSSAI information list for this UPF
-          - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
-              sst: 1 # Slice/Service Type (uinteger, range: 0~255)
-              sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
-            dnnUpfInfoList: # DNN information list for this S-NSSAI
-              - dnn: internet
-              - dnn: IMS
-        interfaces: # Interface list for this UPF
-          - interfaceType: N3 # the type of the interface (N3 or N9)
-            endpoints: # the IP address of this N3/N9 interface on this UPF
-              - 192.168.8.117  # 127.0.0.8
-            networkInstance: internet # Data Network Name (DNN)
-          - interfaceType: N3 # the type of the interface (N3 or N9)
-            endpoints: # the IP address of this N3/N9 interface on this UPF
-              - 192.168.8.117  # 127.0.0.8
-            networkInstance: IMS # Data Network Name (DNN)
-          - interfaceType: N9 # the type of the interface (N3 or N9)
-            endpoints: # the IP address of this N3/N9 interface on this UPF
-              - 192.168.6.117  # 127.0.0.8
-            networkInstance: internet # Data Network Name (DNN)
-          - interfaceType: N9 # the type of the interface (N3 or N9)
-            endpoints: # the IP address of this N3/N9 interface on this UPF
-              - 192.168.6.117  # 127.0.0.8
-            networkInstance: IMS # Data Network Name (DNN)
-      UPF_Internet:  # the name of the node
-        type: UPF # the type of the node (AN or UPF)
-        node_id: 192.168.34.113 # 127.0.0.8 # the IP/FQDN of N4 interface on this UPF (PFCP)
-        sNssaiUpfInfos: # S-NSSAI information list for this UPF
-          - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
-              sst: 1 # Slice/Service Type (uinteger, range: 0~255)
-              sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
-            dnnUpfInfoList: # DNN information list for this S-NSSAI
-              - dnn: internet
-                pools:
-                  - cidr: 60.60.0.0/24 # 60.60.0.0/24
-        interfaces: # Interface list for this UPF
-          - interfaceType: N9 # the type of the interface (N3 or N9)
-            endpoints: # the IP address of this N3/N9 interface on this UPF
-              - 192.168.6.113  # 127.0.0.8
-            networkInstance: internet # Data Network Name (DNN)
-      UPF_IMS:  # the name of the node
-        type: UPF # the type of the node (AN or UPF)
-        node_id: 192.168.34.114 # 127.0.0.8 # the IP/FQDN of N4 interface on this UPF (PFCP)
-        sNssaiUpfInfos: # S-NSSAI information list for this UPF
-          - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
-              sst: 1 # Slice/Service Type (uinteger, range: 0~255)
-              sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
-            dnnUpfInfoList: # DNN information list for this S-NSSAI
-              - dnn: IMS
-                pools:
-                  - cidr: 60.60.1.0/24 # 60.60.1.0/24
-        interfaces: # Interface list for this UPF
-          - interfaceType: N9 # the type of the interface (N3 or N9)
-            endpoints: # the IP address of this N3/N9 interface on this UPF
-              - 192.168.6.114  # 127.0.0.8
-            networkInstance: IMS # Data Network Name (DNN)
- 
+  		userplane_information: # list of userplane information
+    		 up_nodes: # information of userplane node (AN or UPF)
+      		  gNB1: # the name of the node 
+		   type: AN # the type of the node (AN or UPF)
+		  UPF_I:  # the name of the node	
+        	   type: UPF # the type of the node (AN or UPF)
+                   node_id: 192.168.34.117 # 127.0.0.8 # the IP/FQDN of N4 interface on this UPF (PFCP)
+		   sNssaiUpfInfos: # S-NSSAI information list for this UPF
+          	    - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+              	       sst: 1 # Slice/Service Type (uinteger, range: 0~255)
+              	       sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+           	      dnnUpfInfoList: # DNN information list for this S-NSSAI
+              	       - dnn: internet
+              	       - dnn: IMS
+        	   interfaces: # Interface list for this UPF
+          	    - interfaceType: N3 # the type of the interface (N3 or N9)
+            	       endpoints: # the IP address of this N3/N9 interface on this UPF
+              	        - 192.168.8.117  # 127.0.0.8
+            	       networkInstance: internet # Data Network Name (DNN)
+          	        - interfaceType: N3 # the type of the interface (N3 or N9)
+            	           endpoints: # the IP address of this N3/N9 interface on this UPF
+              	            - 192.168.8.117  # 127.0.0.8
+            	       networkInstance: IMS # Data Network Name (DNN)
+          	        - interfaceType: N9 # the type of the interface (N3 or N9)
+            	           endpoints: # the IP address of this N3/N9 interface on this UPF
+              	            - 192.168.6.117  # 127.0.0.8
+            	       networkInstance: internet # Data Network Name (DNN)
+          	        - interfaceType: N9 # the type of the interface (N3 or N9)
+            	           endpoints: # the IP address of this N3/N9 interface on this UPF
+              	            - 192.168.6.117  # 127.0.0.8
+           	       networkInstance: IMS # Data Network Name (DNN)
+		  UPF_Internet:  # the name of the node
+        	   type: UPF # the type of the node (AN or UPF)
+        	   node_id: 192.168.34.113 # 127.0.0.8 # the IP/FQDN of N4 interface on this UPF (PFCP)
+		   sNssaiUpfInfos: # S-NSSAI information list for this UPF
+          	    - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+              	       sst: 1 # Slice/Service Type (uinteger, range: 0~255)
+              	       sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+            	      dnnUpfInfoList: # DNN information list for this S-NSSAI
+              	       - dnn: internet
+                	  pools:
+                  	   - cidr: 60.60.0.0/24 # 60.60.0.0/24
+        	          interfaces: # Interface list for this UPF
+          	           - interfaceType: N9 # the type of the interface (N3 or N9)
+            		     endpoints: # the IP address of this N3/N9 interface on this UPF
+              		      - 192.168.6.113  # 127.0.0.8
+            		     networkInstance: internet # Data Network Name (DNN)
+		  UPF_IMS:  # the name of the node
+		   type: UPF # the type of the node (AN or UPF)
+		   node_id: 192.168.34.114 # 127.0.0.8 # the IP/FQDN of N4 interface on this UPF (PFCP)
+		   sNssaiUpfInfos: # S-NSSAI information list for this UPF
+		    - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+		       sst: 1 # Slice/Service Type (uinteger, range: 0~255)
+		       sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+		      dnnUpfInfoList: # DNN information list for this S-NSSAI
+		       - dnn: IMS
+		          pools:
+		           - cidr: 60.60.1.0/24 # 60.60.1.0/24
+		          interfaces: # Interface list for this UPF
+		           - interfaceType: N9 # the type of the interface (N3 or N9)
+		          endpoints: # the IP address of this N3/N9 interface on this UPF
+		           - 192.168.6.114  # 127.0.0.8
+		          networkInstance: IMS # Data Network Name (DNN)
 		```
 		- Definition of user plane topology in links section.
 		```yaml
-    links: # the topology graph of userplane, A and B represent the two nodes of each link
-      - A: gNB1
-        B: UPF_I
-      - A: UPF_I
-        B: UPF_Internet
-      - A: UPF_I
-        B: UPF_IMS
+    		links: # the topology graph of userplane, A and B represent the two nodes of each link
+      		- A: gNB1
+        	  B: UPF_I
+      		- A: UPF_I
+        	  B: UPF_Internet
+      		- A: UPF_I
+        	  B: UPF_IMS
 		```
 	- Update ./free5gc/config/uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/uerouting.yaml).
 	```yaml
-ueRoutingInfo: # the list of UE routing information
-  UE1: # Group Name
-    members:
-    - imsi-208930000000003 # Subscription Permanent Identifier of the UE
-    topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
-    # default path derived from this topology
-    # node name should be consistent with smfcfg.yaml
-      - A: gNB1
-        B: UPF_I
-      - A: UPF_I
-        B: UPF_Internet
-      - A: UPF_I
-        B: UPF_IMS
-    specificPath:
-      - dest: 192.168.8.115/32 # the destination IP address on Data Network (DN)
-        # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
-        # The UPF's name should be consistent with smfcfg.yaml
-        path: [UPF_I, UPF_Internet]
-      - dest: 192.168.8.116/32 # the destination IP address on Data Network (DN)
-        # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
-        # The UPF's name should be consistent with smfcfg.yaml
-        path: [UPF_I, UPF_IMS]
+	ueRoutingInfo: # the list of UE routing information
 	```
 - Second Free5GC VM:
 		- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet and IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/upfcfg.yaml).
