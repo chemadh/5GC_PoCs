@@ -137,6 +137,27 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	- Update ./free5gc/config/uerouting.yaml to identify routing details related to UEs, where the user plane topology defined in SMF config is replicated and associated to UEs to be used in the test (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc/uerouting.yaml).
 	```yaml
 	ueRoutingInfo: # the list of UE routing information
+	UE1: # Group Name
+	 members:
+	  - imsi-208930000000003 # Subscription Permanent Identifier of the UE
+	 topology: # Network topology for this group (Uplink: A->B, Downlink: B->A)
+	 # default path derived from this topology
+	 # node name should be consistent with smfcfg.yaml
+	   - A: gNB1
+	     B: UPF_I
+	   - A: UPF_I
+	     B: UPF_Internet
+	   - A: UPF_I
+	     B: UPF_IMS
+	 specificPath:
+	   - dest: 192.168.8.115/32 # the destination IP address on Data Network (DN)
+             # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
+             # The UPF's name should be consistent with smfcfg.yaml
+             path: [UPF_I, UPF_Internet]
+           - dest: 192.168.8.116/32 # the destination IP address on Data Network (DN)
+             # the order of UPF nodes in this path. We use the UPF's name to represent each UPF node.
+             # The UPF's name should be consistent with smfcfg.yaml
+             path: [UPF_I, UPF_IMS]
 	```
 - Second Free5GC VM:
 		- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet and IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/upfcfg.yaml).
