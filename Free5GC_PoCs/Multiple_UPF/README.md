@@ -161,31 +161,28 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 	```
 - Second Free5GC VM:
 		- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in their relative sections. Definition of Internet and IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc02/upfcfg.yaml).
-		```yaml
-  # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
-  pfcp:
-    - addr: 192.168.34.113 # 127.0.0.8
-
-  # The IP list of the N3/N9 interfaces on this UPF
-  # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
-  gtpu:
-    - addr: 192.168.6.113  # 127.0.0.8
-
-  dnn_list:
-    - dnn: internet # Data Network Name
-      cidr: 60.60.0.0/24 # 60.60.2.0/24 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
-		```
+```yaml
+# The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
+pfcp:
+ - addr: 192.168.34.113 # 127.0.0.8
+# The IP list of the N3/N9 interfaces on this UPF
+# If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
+gtpu:
+ - addr: 192.168.6.113  # 127.0.0.8
+dnn_list:
+ - dnn: internet # Data Network Name
+    cidr: 60.60.0.0/24 # 60.60.2.0/24 # Classless Inter-Domain Routing for assigned IPv4 pool of UE
+```
 - Third Free5GC VM:
 	- Update of ./free5gc/NFs/upf/build/config/upfcfg.yaml for UPF configuration, setting pfcp and gtpu addresses in its respective sections. Definition of IMS in dnn_list section (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/free5gc03/upfcfg.yaml).
 ```yaml
-  # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
-  pfcp:
-    - addr: 192.168.34.117 # 127.0.0.8
-
-  # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
-  gtpu:
-    - addr: 192.168.8.117  # 127.0.0.8
-    - addr: 192.168.6.117  # 127.0.0.8
+# The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
+pfcp:
+ - addr: 192.168.34.117 # 127.0.0.8
+# If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
+gtpu:
+ - addr: 192.168.8.117  # 127.0.0.8
+ - addr: 192.168.6.117  # 127.0.0.8
 
 
   # The DNN list supported by UPF
@@ -220,25 +217,25 @@ Distribution of elements in Poxmox local and VPS clusters’ test bench:
 
 - Update of UERANSIM: 
 	- Update of gNB configuration file to configure N2 NGAP interface to interact with AMF LAN IP (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-gnb.yaml).
-```yaml
-ngapIp: 192.168.7.109 # 127.0.0.1   # gNB's local IP address for N2 Interface (Usually same with local IP)
-gtpIp: 192.168.8.109 # 127.0.0.1    # gNB's local IP address for N3 Interface (Usually same with local IP)
-```
+	```yaml
+	ngapIp: 192.168.7.109 # 127.0.0.1   # gNB's local IP address for N2 Interface (Usually same with local IP)
+	gtpIp: 192.168.8.109 # 127.0.0.1    # gNB's local IP address for N3 Interface (Usually same with local IP)
+	```
 	- Update of UE configuration file to define both Internet and IMS DNNs (complete file in https://github.com/chemadh/5GC_PoCs/tree/main/Free5GC_PoCs/Multiple_UPF/config_files/ueransim/free5gc-ue.yaml).
-```yaml	
-# Initial PDU sessions to be established
-sessions:
-  - type: 'IPv4'
-    apn: 'internet'
-    slice:
-      sst: 0x01
-      sd: 0x010203
-  - type: 'IPv4'
-    apn: 'IMS'
-    slice:
-      sst: 0x01
-      sd: 0x010203
-```
+	```yaml	
+	# Initial PDU sessions to be established
+	sessions:
+	- type: 'IPv4'
+	  apn: 'internet'
+	  slice:
+	   sst: 0x01
+	   sd: 0x010203
+	- type: 'IPv4'
+	  apn: 'IMS'
+	  slice:
+	   sst: 0x01
+	   sd: 0x010203
+	```
 ## Tests done:
 Once all Free5GC and UERANSIM components are running (using their respectively updated run.sh and run_only_upf.sh startup scripts), it can be checked that UERANSIM node has raised two GTP tunnels with I-UPF, one for Internet DNN and other for IMS DNN. UERANSIM startup example:
 ```
