@@ -15,4 +15,4 @@ The environment used to deploy the presented PoCs is Proxmox Virtual Environment
 ## Additional references
 
 The following list contains third repositories with very valuable example configurations of Free5GC and Open5GS:
-- Shigeru Ishida github respositories: https://github.com/s5uishida?tab=repositories
+- Shigeru Ishida's github respositories: https://github.com/s5uishida?tab=repositories
