@@ -10,7 +10,7 @@ In addition to this, UERANSIM (https://github.com/aligungr/UERANSIM) is a simula
 
 ## Virtualized test environment
 
-The environment used to deploy the presented PoCs is Proxmox Virtual Environment (PVE), and it has been deployed in two clusters: one compound by 3 local physical machines, and other deployed in two VPS equipment in a public cloud. The two environments are configured with a common VXLAN overlay network to share the same L2 networking space. Anyway, any other virtualized environment is suitable to build similar examples meanwhile it includes local LAN connectivity between virtualized elements (i.e. OpenStack, virtualBox, etc).
+The environment used to deploy the presented PoCs is Proxmox Virtual Environment (PVE), and it has been deployed in two clusters: one compound by 3 local physical machines, and other deployed in two VPS equipment in a public cloud. The two environments are configured with a common VXLAN overlay network to share the same L2 networking space. Anyway, any other virtualized environment is suitable to build similar examples meanwhile it includes L2 IP connectivity between virtualized elements (i.e. OpenStack, virtualBox, etc).
 
 ## Additional references
 
